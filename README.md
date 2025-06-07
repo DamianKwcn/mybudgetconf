@@ -1,0 +1,2 @@
+# mybudgetconf
+Config for MyBudget
