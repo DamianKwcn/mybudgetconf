@@ -1,0 +1,35 @@
+server:
+  port: ${SERVER_PORT}
+
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME}
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE}
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${CONFIG_GIT_URI}
+          default-label: ${CONFIG_GIT_DEFAULT_LABEL}
+          timeout: ${CONFIG_GIT_TIMEOUT}
+          clone-on-start: ${CONFIG_GIT_CLONE_ON_START}
+          force-pull: ${CONFIG_GIT_FORCE_PULL}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+encrypt:
+  key: ${ENCRYPT_KEY}

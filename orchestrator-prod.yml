@@ -1,0 +1,52 @@
+server:
+  port: ${SERVER_PORT}
+
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE}
+  application:
+    name: ${SPRING_APPLICATION_NAME}
+  config:
+    import: ${CONFIG_SERVER_URL}
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: ${KAFKA_CONSUMER_GROUP_ID}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: ${KAFKA_CONSUMER_TRUSTED_PACKAGES}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: ${EUREKA_INSTANCE_PREFERIPADDRESS}
+  client:
+    fetchRegistry: ${EUREKA_CLIENT_FETCHREGISTRY}
+    registerWithEureka: ${EUREKA_CLIENT_REGISTERWITHEUREKA}
+    serviceUrl:
+      defaultZone: ${EUREKA_DEFAULT_ZONE}
+
+logging:
+  level:
+    com:
+      mybudget:
+        accounts: DEBUG
+      netflix.discovery: DEBUG
+
+info:
+  app:
+    name: ${INFO_APP_NAME}
+    description: ${INFO_APP_DESCRIPTION}
+    version: ${INFO_APP_VERSION}
